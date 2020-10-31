@@ -48,7 +48,7 @@ DRAWS = 0
 MMX = 0
 
 # maximum number of games played
-MAX_GAMES = 200
+MAX_GAMES = 20
 
 # how many games
 RAN = 0
@@ -465,6 +465,7 @@ def main():
 
     game_initiating_window()
 
+    games = 0
     while (True):
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -480,6 +481,7 @@ def main():
         time.sleep(0.2)  # time to wait between move pairs
         random_move()  # make a random move
         if (WINNER or DRAW):  # check for end before next move
+            games += 1
             if (DRAWS + MMX + RAN) >= MAX_GAMES:
                 print("Draws: {0}, Minimax: {1}, Random: {2}, Games {3}". \
                       format(DRAWS, MMX, RAN, (DRAWS + MMX + RAN)))
@@ -489,8 +491,9 @@ def main():
         else:
             computer_move()  # minimax move
             if (WINNER or DRAW):
+                games += 1
                 if (DRAWS + MMX + RAN) >= MAX_GAMES:
-                    print("Draws: {0}, Minimax: {1}, Random: {2}, Games {3}". \
+                    print("Draws: {0}, Minimax: {1}, Random: {2}, games {3}". \
                           format(DRAWS, MMX, RAN, (DRAWS + MMX + RAN)))
                     pg.quit()
                     sys.exit()
